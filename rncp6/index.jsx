@@ -13,6 +13,8 @@ import About from './src/pages/About';
 import Login from './src/pages/Login';
 import Signupform from './src/pages/Signup';
 import Test from './src/pages/Test';
+import SignIn from './src/pages/Signin';
+import Dashboard from './src/pages/Dashboard';
 
 const App = () => (
   <Router>
@@ -22,6 +24,8 @@ const App = () => (
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signupform />} />
       <Route path="/test" element={<Test />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   </Router>
 );
