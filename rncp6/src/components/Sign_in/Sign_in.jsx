@@ -6,6 +6,7 @@ const Sign_in = () => {
 	const navigate = useNavigate();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const { accessToken, setAccessToken } = useAuth();
 
 
 	const handleSubmit = async (e) => {
@@ -21,6 +22,7 @@ const Sign_in = () => {
 
 
 		/*TRY SENDING DATA TO BACKEND: Send the username and password to the backend*/
+		/*ON FAIL LOG ERROR MESSAGE: Alert the user that login failed, function does not fail*/
 		try {
 			const res = await fetch("http://172.19.48.43:5001/api/auth", {
 				method: "POST",
@@ -30,9 +32,7 @@ const Sign_in = () => {
 
 			const data = await res.json();
 			console.log("Server response:", data);
-		}
-		/*ON FAIL LOG ERROR MESSAGE: Alert the user that login failed, function does not fail*/
-		catch (err) {
+		} catch (err) {
 			console.error("Error logging in:", err);
 		}
 	};
