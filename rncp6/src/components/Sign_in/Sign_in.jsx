@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styles from './Sign_in.module.css';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../security/authContext.jsx';
+
 
 const Sign_in = () => {
 	const navigate = useNavigate();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const { accessToken, setAccessToken } = useAuth();
-
+	const { setAccessToken } = useAuth();
 
 	const handleSubmit = async (e) => {
 
@@ -21,8 +22,11 @@ const Sign_in = () => {
 		}
 
 
-		/*TRY SENDING DATA TO BACKEND: Send the username and password to the backend*/
-		/*ON FAIL LOG ERROR MESSAGE: Alert the user that login failed, function does not fail*/
+		/*TRY SENDING DATA TO BACKEND:
+			Send the username and password to the backend.
+			If credentials are valid, auth route responds with a refresh http only cookie(refreshToken) saved in browser
+			and accessToken in the response body.
+		*/
 		try {
 			const res = await fetch("http://172.19.48.43:5001/api/auth", {
 				method: "POST",
@@ -31,7 +35,14 @@ const Sign_in = () => {
 			});
 
 			const data = await res.json();
-			console.log("Server response:", data);
+			/*HANDLE RESPONSE: If login is successful, store the accessToken in context and navigate to dashboard*/
+			if (res.ok) {
+				//alert("Login successful!");
+				setAccessToken(data.accessToken);
+				setTimeout(() => navigate("/dashboard"), 0);
+			} else {
+				alert("Login failed. Please try again.");
+			}
 		} catch (err) {
 			console.error("Error logging in:", err);
 		}

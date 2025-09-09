@@ -22,8 +22,11 @@ app.use(cookieParser());
 // Mount routes
 const userRoutes = require("./DB/Routes/users");
 const authRoutes = require("./DB/Routes/auth");
+const checkTokenRoutes = require("./DB/Routes/checkAccessToken");
 
 app.use("/api", userRoutes);
 app.use("/api", authRoutes);
+app.use("/api", checkTokenRoutes);
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

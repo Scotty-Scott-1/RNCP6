@@ -6,9 +6,9 @@ const AuthContext = createContext({
 });
 
 export const AuthProvider = ({ children }) => {
-  console.log("🔐 AuthProvider rendering");
+  console.log("AuthProvider rendering");
   const [accessToken, setAccessToken] = useState(null);
-  console.log("🔐 accessToken state:", accessToken);
+  console.log("accessToken state:", accessToken);
 
   return (
     <AuthContext.Provider value={{ accessToken, setAccessToken }}>

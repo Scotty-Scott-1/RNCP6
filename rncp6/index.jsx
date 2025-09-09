@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { AuthProvider } from "./src/authContext.jsx";
+import { AuthProvider } from "./src/security/authContext.jsx";
+import ProtectRoute from './src/security/protectRoutes.jsx';
 import './src/global.css';
 import {
   BrowserRouter as Router,
@@ -26,7 +27,14 @@ const App = () => (
       <Route path="/signup" element={<Signupform />} />
       <Route path="/test" element={<Test />} />
       <Route path="/signin" element={<SignIn />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectRoute>
+            <Dashboard />
+          </ProtectRoute>
+        }
+      />
     </Routes>
   </Router>
 );

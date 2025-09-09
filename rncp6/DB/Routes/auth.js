@@ -3,6 +3,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 const User = require("../Models/User");
+
 const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "superrefreshsecret";
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
@@ -52,6 +53,8 @@ router.post("/auth", async (req, res) => {
 			username: userToCheck.username },
 			accessToken
 		});
+
+
 
 	}
 	// RETURN ERROR: If post request fails*/
