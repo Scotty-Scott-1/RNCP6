@@ -1,16 +1,16 @@
 const express = require("express");
 const Campaign = require("../Models/Campaign");
 const router = express.Router();
+const verifyAccessToken = require("./checkAcessTokenBackend.js")
 
-router.post("/api/campaign/get/", async (req, res) => {
-	try {
-		const campaign = new Campaign(req.body);
-		await campaign.save();
-		res.status(201).json(campaign);
-	} catch (error) {
-		res.status(400).json({ message: error.message });
-	}
+router.get("/api/campaign/get", verifyAccessToken, async (req, res) => {
+  try {
+    const userId = req.user.id; // set by authenticateToken middleware
+    const campaigns = await Campaign.find({ createdBy: userId });
+    res.json(campaigns);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
-
 module.exports = router;
 

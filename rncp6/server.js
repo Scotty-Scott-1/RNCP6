@@ -34,12 +34,15 @@ const authRoutes = require("./DB/Routes/auth");
 const checkTokenRoutes = require("./DB/Routes/checkAccessToken");
 const refreshTokenRoutes = require("./DB/Routes/refreshAccessToken");
 const newcampaign = require("./DB/Routes/newCampaignRoute.js");
+const getcampaign = require("./DB/Routes/getCampaignRoute.js");
+
 
 app.use(userRoutes);
 app.use(authRoutes);
 app.use(checkTokenRoutes);
 app.use(refreshTokenRoutes);
 app.use(newcampaign);
+app.use(getcampaign);
 
 // Start HTTPS server
 https.createServer(options, app).listen(PORT, () => {

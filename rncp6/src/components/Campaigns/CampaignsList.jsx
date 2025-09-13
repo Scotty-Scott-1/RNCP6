@@ -1,26 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, use } from "react";
 import styles from "./DashComp1.module.css";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../../security/authContext.jsx";
 
 
 const Campaigns = () => {
-  const navigate = useNavigate();
-  const campaigns = [
-    { id: 1, name: "Spring Awareness", dateCreated: "01/05/2014", status: "Active", type: "Phishing" },
-    { id: 2, name: "Phishing Test 1", dateCreated: "01/05/2014", status: "Active", type: "Phishing" },
-    { id: 3, name: "Red Team Drill", dateCreated: "01/05/2014", status: "Active", type: "Phishing" },
-    { id: 4, name: "Employee Training", dateCreated: "01/05/2014", status: "Active", type: "Phishing" },
-    { id: 5, name: "Simulated Attack", dateCreated: "01/05/2014", status: "Active", type: "Phishing" },
-    { id: 6, name: "Quarterly Test", dateCreated: "01/05/2014", status: "Active", type: "Phishing" },
-    { id: 7, name: "Phishing Test 2", dateCreated: "01/05/2014", status: "Active", type: "Phishing" },
-    { id: 8, name: "Summer Awareness", dateCreated: "01/05/2014", status: "Active", type: "Phishing" },
-  ];
+	const navigate = useNavigate();
+	const {accessToken} = useAuth()
+	const [myCampaigns, setMyCampaigns] = useState([]);
+
+	useEffect(() => {
+		const getCampaigns = async() => {
+			try {
+				const response = await fetch("https://localhost:5001/api/campaign/get", {
+					method: "GET",
+					headers: {
+						"Authorization": `Bearer ${accessToken}`,
+						"Content-Type": "application/json"
+					}
+				});
+					if (response.ok) {
+						const data = await response.json();
+						console.log(data);
+						setMyCampaigns(data);
+						return;
+					}
+			} catch(error) {
+				console.log(error);
+				return;
+			}
+		}
+		if (accessToken) {
+			console.log("trying to fetch campaigns owned by this user")
+			getCampaigns();
+
+		}
+	}, [accessToken]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
-  const currentItems = campaigns.slice(indexOfFirst, indexOfLast);
-  const totalPages = Math.ceil(campaigns.length / itemsPerPage);
+  const currentItems = myCampaigns.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(myCampaigns.length / itemsPerPage);
 
   const handleCampaignClick = (id) => {
     console.log("Clicked campaign:", id);
@@ -42,24 +64,24 @@ const Campaigns = () => {
       <div className={styles.listHeader}>
         <span>Name</span>
         <span>Date Created</span>
-        <span>Status</span>
-        <span>Type</span>
+        <span>End time</span>
+        <span>mailing list</span>
         <span>Actions</span>
       </div>
 
       {/* Campaign entries */}
       <div className={styles.list}>
         {currentItems.map((c) => (
-          <div key={c.id} className={styles.listItem}>
+          <div key={c._id} className={styles.listItem}>
             <button
               className={styles.campaignButton}
               onClick={() => handleCampaignClick(c.id)}
             >
-              {c.name}
+              {c.campaignName}
             </button>
-            <span>{c.dateCreated}</span>
-            <span>{c.status}</span>
-            <span>{c.type}</span>
+            <span>{new Date(c.startTime).toLocaleDateString()}</span>
+            <span>{new Date(c.endTime).toLocaleDateString()}</span>
+            <span>{c.selectMailingList}</span>
             <button className={styles.button} onClick={handleAddCampaign}>
               +
             </button>

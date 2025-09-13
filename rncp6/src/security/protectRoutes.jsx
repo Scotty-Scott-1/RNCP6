@@ -11,7 +11,7 @@ const ProtectRoute = ({ children }) => {
 
 	/*EFFECT TO VALIDATE TOKEN: On component mount or when accessToken changes, validate the token with the backend*/
 	useEffect(() => {
-		  console.log("Current accessToken111:", accessToken);
+		console.log("Current accessToken111:", accessToken);
 		const validateToken = async () => {
 			if (!accessToken) {
 				setStatus("invalid");
