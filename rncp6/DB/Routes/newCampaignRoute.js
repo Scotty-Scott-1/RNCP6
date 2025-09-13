@@ -2,7 +2,7 @@ const express = require("express");
 const Campaign = require("../Models/Campaign");
 const router = express.Router();
 
-router.post("/campaign/new", async (req, res) => {
+router.post("/api/campaign/new", async (req, res) => {
 	try {
 		const campaign = new Campaign(req.body);
 		await campaign.save();

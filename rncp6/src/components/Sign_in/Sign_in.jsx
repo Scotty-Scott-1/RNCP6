@@ -28,7 +28,7 @@ const Sign_in = () => {
 			and accessToken in the response body.
 		*/
 		try {
-			const res = await fetch("http://172.19.48.43:5001/api/auth", {
+			const res = await fetch("https://localhost:5001/api/auth", {
 				method: "POST",
 				headers: {"Content-Type": "application/json"},
 				body: JSON.stringify({ username, password }),

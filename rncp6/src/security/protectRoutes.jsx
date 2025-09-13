@@ -19,7 +19,7 @@ const ProtectRoute = ({ children }) => {
 			}
 		/*TRY VALIDATING TOKEN: Send the accessToken to the backend for validation*/
 		try {
-			const response = await fetch("http://172.19.48.43:5001/api/checkaccess", {
+			const response = await fetch("https://localhost:5001/api/checkaccess", {
 				method: "POST",
 				headers: {"Content-Type": "application/json"},
 				body: JSON.stringify({ token: accessToken }),

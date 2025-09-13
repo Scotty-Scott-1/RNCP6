@@ -32,7 +32,7 @@ const NewCampaignComponent = () => {
 		}
 		console.log("sdfd",{accessToken})
 		try {
-			const response = await fetch("http://172.19.48.43:5001/api/campaign/new", {
+			const response = await fetch("https://localhost:5001/api/campaign/new", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

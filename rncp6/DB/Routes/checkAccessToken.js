@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 
 /*POST ROUTE TO CHECK ACCESS TOKEN: Receives an access token from the client and verifies its validity with secret key*/
-router.post("/checkaccess", (req, res) => {
+router.post("/api/checkaccess", (req, res) => {
   const { token } = req.body;
   /*IF NO TOKEN PROVIDED: If no token is provided, respond with 401 Unauthorized*/
   if (!token) {

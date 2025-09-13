@@ -11,7 +11,7 @@ const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
 
 
 
-router.post("/refresh_token", (req, res) => {
+router.post("/api/refresh_token", (req, res) => {
   const token = req.cookies.refreshToken;
   if (!token) return res.status(403).json({ message: "No token providedAAAA" });
 

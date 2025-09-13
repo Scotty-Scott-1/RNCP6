@@ -26,7 +26,7 @@ const SignUp = () => {
 		}
 		/*TRY SENDING DATA TO BACKEND: Send the form data to the backend*/
 		try {
-			const response = await fetch("http://172.19.48.43:5001/api/users", {
+			const response = await fetch("https://localhost:5001/api/users", {
 				method: "POST",
 				headers: {"Content-Type": "application/json"},
 				body: JSON.stringify({
