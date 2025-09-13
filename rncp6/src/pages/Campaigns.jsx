@@ -1,17 +1,16 @@
-// Dashboard.jsx
 import Header from '../components/Header/Header.jsx'
-import Comp1 from '../components/Dashboard/DashComp1.jsx'
+import List from '../components/Campaigns/CampaignsList.jsx'
 import React from "react";
 
-const Dashboard = () => {
+const Campaigns = () => {
   return (
     <div>
       <Header />
-      <Comp1 />
+      <List />
     </div>
   );
 }
-export default Dashboard;
+export default Campaigns;
 
 
 

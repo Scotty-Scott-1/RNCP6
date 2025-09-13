@@ -32,14 +32,21 @@ const Sign_in = () => {
 				method: "POST",
 				headers: {"Content-Type": "application/json"},
 				body: JSON.stringify({ username, password }),
+				credentials: "include"
 			});
 
 			const data = await res.json();
 			/*HANDLE RESPONSE: If login is successful, store the accessToken in context and navigate to dashboard*/
 			if (res.ok) {
-				//alert("Login successful!");
+				console.log("Login successful:", data);
 				setAccessToken(data.accessToken);
 				setTimeout(() => navigate("/dashboard"), 0);
+
+				localStorage.setItem("user", JSON.stringify({
+					id: data.user.id,
+					username: data.user.username
+				}));
+
 			} else {
 				alert("Login failed. Please try again.");
 			}

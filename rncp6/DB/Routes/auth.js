@@ -18,7 +18,7 @@ router.post("/auth", async (req, res) => {
 		// VALIDATE USERNAME: Check if username is in database*/
 		const userToCheck = await User.findOne({ username });
 		if (!userToCheck) {
-			return res.status(401).json({ message: "Invalid credentials" });
+			return res.status(403).json({ message: "Invalid credentials" });
 		}
 		// CHECK PASSWORD: Compare the provided password with the hashed password in the database*/
 		const isMatch = await userToCheck.checkPassword(password);
@@ -31,20 +31,21 @@ router.post("/auth", async (req, res) => {
 		const accessToken = jwt.sign(
 			{ id: userToCheck._id, username: userToCheck.username },
 			JWT_SECRET,
-			{ expiresIn: "15m" }
+			{ expiresIn: "30m" }
 		);
 
 		const refreshToken = jwt.sign(
-			{ id: userToCheck._id },
+			{ id: userToCheck._id, username: userToCheck.username },
 			JWT_REFRESH_SECRET,
 			{ expiresIn: "7d" } // long-lived
 		);
 
 		res.cookie("refreshToken", refreshToken, {
 			httpOnly: true,
-			secure: process.env.NODE_ENV === "production", // HTTPS in prod
-			sameSite: "Strict",
-			maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+			secure: false,
+			sameSite: "None",
+			maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+			path: "/api"
 		});
 
 		res.status(200).json({
@@ -54,8 +55,6 @@ router.post("/auth", async (req, res) => {
 			accessToken
 		});
 
-
-
 	}
 	// RETURN ERROR: If post request fails*/
 	catch (error) {
@@ -63,28 +62,6 @@ router.post("/auth", async (req, res) => {
 		res.status(500).json({ message: "Internal server error" });
 	}
 });
-
-
-
-
-router.post("/refresh_token", (req, res) => {
-  const token = req.cookies.refreshToken;
-  if (!token) return res.status(403).json({ message: "No token provided" });
-
-  try {
-    const payload = jwt.verify(token, JWT_REFRESH_SECRET);
-    const newAccessToken = jwt.sign(
-      { id: payload.id, username: payload.username },
-      JWT_SECRET,
-      { expiresIn: "15m" }
-    );
-    res.json({ accessToken: newAccessToken });
-  } catch (err) {
-    console.error("Refresh token error:", err);
-    res.status(403).json({ message: "Invalid or expired refresh token" });
-  }
-});
-
 
 
 

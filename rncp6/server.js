@@ -15,18 +15,21 @@ app.use(cors({
 	credentials: true
 }));
 
-app.use(express.json());
 app.use(cookieParser());
+app.use(express.json());
 
 
 // Mount routes
 const userRoutes = require("./DB/Routes/users");
 const authRoutes = require("./DB/Routes/auth");
 const checkTokenRoutes = require("./DB/Routes/checkAccessToken");
+const refreshTokenRoutes = require("./DB/Routes/refreshAccessToken");
+const newcampaign = require("./DB/Routes/newCampaignRoute.js");
 
 app.use("/api", userRoutes);
 app.use("/api", authRoutes);
 app.use("/api", checkTokenRoutes);
-
+app.use("/api", refreshTokenRoutes);
+app.use("/api", newcampaign);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

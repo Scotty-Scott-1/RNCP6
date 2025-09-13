@@ -17,6 +17,8 @@ import Signupform from './src/pages/Signup.jsx';
 import Test from './src/pages/Test.jsx';
 import SignIn from './src/pages/Signin.jsx';
 import Dashboard from './src/pages/Dashboard.jsx';
+import Campaigns from './src/pages/Campaigns.jsx';
+import NewCampaignPage from './src/pages/newCampaignPage.jsx';
 
 const App = () => (
   <Router>
@@ -27,15 +29,11 @@ const App = () => (
       <Route path="/signup" element={<Signupform />} />
       <Route path="/test" element={<Test />} />
       <Route path="/signin" element={<SignIn />} />
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectRoute>
-            <Dashboard />
-          </ProtectRoute>
-        }
-      />
+      <Route path="/dashboard" element={<ProtectRoute><Dashboard /></ProtectRoute>}/>
+      <Route path="/campaigns" element={<ProtectRoute><Campaigns /></ProtectRoute> }/>
+      <Route path="/campaign/new" element={  <ProtectRoute> <NewCampaignPage />  </ProtectRoute>      }/>
     </Routes>
+
   </Router>
 );
 

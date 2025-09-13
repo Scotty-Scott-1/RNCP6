@@ -7,16 +7,21 @@ router.post("/checkaccess", (req, res) => {
   const { token } = req.body;
   /*IF NO TOKEN PROVIDED: If no token is provided, respond with 401 Unauthorized*/
   if (!token) {
-	alert("No token provided");
-    return res.status(401).json({ valid: false, message: "No token provided" });
+    return res.status(403).json({ valid: false, message: "No token provided" });
   }
   /*TRY VERIFYING TOKEN: Verify the token using the secret key. If valid, respond with valid: true, otherwise respond with 403 Forbidden*/
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-	console.log("Undecoded token length:", token?.length || "no token");
-    res.status(200).json({ valid: true });
+    console.log("Decoded token:", decoded);
+    return res.status(200).json({ valid: true, message: "Token is valid" });
   } catch (err) {
-    res.status(403).json({ valid: false, message: "Invalid token" });
+
+	if (err.name === "TokenExpiredError")
+	{
+		return res.status(401).json({ valid: false, message: "token expired" });
+	}
+
+    return res.status(403).json({ valid: false, message: "Invalid token" });
   }
 });
 
