@@ -31,7 +31,7 @@ router.post("/api/auth", async (req, res) => {
 		const accessToken = jwt.sign(
 			{ id: userToCheck._id, username: userToCheck.username },
 			JWT_SECRET,
-			{ expiresIn: "30m" }
+			{ expiresIn: "1m" }
 		);
 
 		const refreshToken = jwt.sign(
@@ -42,10 +42,11 @@ router.post("/api/auth", async (req, res) => {
 
 		res.cookie("refreshToken", refreshToken, {
 			httpOnly: true,
-			secure: false,
-			sameSite: "None",
-			maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-			path: "/api"
+			secure: true,
+			sameSite: "None",     // required for cross-origin cookies
+			maxAge: 7 * 24 * 60 * 60 * 1000,
+			path: "/",
+			domain: "localhost"
 		});
 
 		res.status(200).json({

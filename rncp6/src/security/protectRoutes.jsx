@@ -54,7 +54,7 @@ const ProtectRoute = ({ children }) => {
 		if (status !== "expired") return;
 		const refresh = async () => {
 			try {
-				const response = await fetch("http://172.19.48.43:5001/api/refresh_token", {
+				const response = await fetch("https://localhost:5001/api/refresh_token", {
 					method: "POST",
 					credentials: "include", // Include cookies
 				});
