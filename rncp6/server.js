@@ -39,6 +39,7 @@ const getMailingList= require("./DB/Routes/getMailingListRoute.js");
 const newMailingList = require("./DB/Routes/newMailingListRoute.js");
 const getOneMailingList= require("./DB/Routes/getOneMailingList.js");
 const updateMailingList = require("./DB/Routes/updateMailingList.js");
+const addcontact = require("./DB/Routes/addContact.js");
 
 app.use(userRoutes);
 app.use(authRoutes);
@@ -50,7 +51,7 @@ app.use(getMailingList);
 app.use(newMailingList);
 app.use(getOneMailingList);
 app.use(updateMailingList);
-
+app.use(addcontact);
 
 // Start HTTPS server
 https.createServer(options, app).listen(PORT, () => {
