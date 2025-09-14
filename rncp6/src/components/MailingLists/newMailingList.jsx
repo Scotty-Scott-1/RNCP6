@@ -6,7 +6,6 @@ import { useAuth } from "../../security/authContext.jsx";
 const NewMailingList = () => {
   const navigate = useNavigate();
   const { accessToken } = useAuth();
-  const user = JSON.parse(localStorage.getItem("user"));
   const [listName, setListName] = useState("");
   const [description, setDescription] = useState("");
 
@@ -58,6 +57,7 @@ const NewMailingList = () => {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
+      <h1 className={styles.title}>Mailing Lists</h1>
       <input
         type="text"
         value={listName}

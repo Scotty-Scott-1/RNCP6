@@ -37,7 +37,8 @@ const newcampaign = require("./DB/Routes/newCampaignRoute.js");
 const getcampaign = require("./DB/Routes/getCampaignRoute.js");
 const getMailingList= require("./DB/Routes/getMailingListRoute.js");
 const newMailingList = require("./DB/Routes/newMailingListRoute.js");
-
+const getOneMailingList= require("./DB/Routes/getOneMailingList.js");
+const updateMailingList = require("./DB/Routes/updateMailingList.js");
 
 app.use(userRoutes);
 app.use(authRoutes);
@@ -47,6 +48,9 @@ app.use(newcampaign);
 app.use(getcampaign);
 app.use(getMailingList);
 app.use(newMailingList);
+app.use(getOneMailingList);
+app.use(updateMailingList);
+
 
 // Start HTTPS server
 https.createServer(options, app).listen(PORT, () => {

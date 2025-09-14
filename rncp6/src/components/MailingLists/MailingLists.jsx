@@ -39,6 +39,8 @@ const MailingLists = () => {
 
   const handleListClick = (id) => {
     console.log("Clicked mailing list:", id);
+    navigate(`/mailinglist/edit/${id}`);
+
   };
 
   const handleAddList = () => {
