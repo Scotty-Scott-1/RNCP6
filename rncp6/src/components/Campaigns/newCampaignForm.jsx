@@ -16,7 +16,6 @@ const NewCampaignComponent = () => {
 	const [landingPageTemplate, setLandingPageTemplate] = useState("");
 	const [landingPage, setLandingPage] = useState(false);
 	const { accessToken } = useAuth();
-	const user = JSON.parse(localStorage.getItem("user"));
 	const [startTime, setStartTime] = useState(new Date());
 	const [endTime, setEndTime] = useState(new Date());
 
@@ -30,12 +29,13 @@ const NewCampaignComponent = () => {
 			alert("Please fill in all fields and agree to the terms.");
 			return;
 		}
-		console.log("sdfd",{accessToken})
+		console.log("sdfdfdgfdgdf",{accessToken})
 		try {
 			const response = await fetch("https://localhost:5001/api/campaign/new", {
 				method: "POST",
 				headers: {
-					"Content-Type": "application/json",
+					"Authorization": `Bearer ${accessToken}`,
+					"Content-Type": "application/json"
 				},
 				body: JSON.stringify({
 					campaignName,
@@ -47,7 +47,6 @@ const NewCampaignComponent = () => {
 					emailTemplate,
 					landingPageTemplate,
 					landingPage,
-					createdBy: user.id
 				}),
 			});
 			if (response.ok) {

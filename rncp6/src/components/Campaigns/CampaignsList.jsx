@@ -57,6 +57,11 @@ const Campaigns = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>Campaigns</h1>
+      {myCampaigns.length === 0 && (
+          <button className={styles.button2} onClick={handleAddCampaign }>
+            + Add Campaign
+          </button>
+        )}
       </div>
 
 

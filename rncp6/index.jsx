@@ -19,7 +19,8 @@ import SignIn from './src/pages/Signin.jsx';
 import Dashboard from './src/pages/Dashboard.jsx';
 import Campaigns from './src/pages/Campaigns.jsx';
 import NewCampaignPage from './src/pages/newCampaignPage.jsx';
-
+import MailingLists from './src/pages/MailingLists.jsx';
+import NewMailingListPage from './src/pages/newMailingListsPage.jsx';
 const App = () => (
   <Router>
     <Routes>
@@ -32,6 +33,9 @@ const App = () => (
       <Route path="/dashboard" element={<ProtectRoute><Dashboard /></ProtectRoute>}/>
       <Route path="/campaigns" element={<ProtectRoute><Campaigns /></ProtectRoute> }/>
       <Route path="/campaign/new" element={  <ProtectRoute> <NewCampaignPage />  </ProtectRoute>      }/>
+      <Route path="/mailinglists" element={  <ProtectRoute> <MailingLists />  </ProtectRoute>      }/>
+      <Route path="/newmailinglist" element={  <ProtectRoute> <NewMailingListPage />  </ProtectRoute>      }/>
+
     </Routes>
 
   </Router>

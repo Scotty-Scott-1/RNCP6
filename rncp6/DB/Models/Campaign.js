@@ -1,18 +1,6 @@
 const mongoose = require("mongoose");
 
-/*
-	const [campaignName, setCampaignName] = useState("");
-	const [desciption, setDescirption] = useState("");
-	const [startTime, setStartTime] = useState("");
-	const [endTime, setEndTime] = useState("");
-	const [selectMailingList, setSelectMailingList] = useState("");
-	const [emailSenderName, setEmailSenderName] = useState("");
-	const [emailTemplate, setEmailTemplate] = useState("");
-	const [landingPageTemplate, setLandingPageTemplate] = useState("");
-	const [landingPage, setLandingPage] = useState(false);
-*/
-
-const userSchema = new mongoose.Schema({
+const campaignSchema = new mongoose.Schema({
 	campaignName: String,
 	description: String,
 	startTime: String,
@@ -25,4 +13,4 @@ const userSchema = new mongoose.Schema({
 	createdBy: String
 }, { versionKey: false });
 
-module.exports = mongoose.model("Campaign", userSchema);
+module.exports = mongoose.model("Campaign", campaignSchema);
