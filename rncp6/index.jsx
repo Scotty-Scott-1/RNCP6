@@ -21,7 +21,8 @@ import Campaigns from './src/pages/Campaigns.jsx';
 import NewCampaignPage from './src/pages/newCampaignPage.jsx';
 import MailingLists from './src/pages/MailingLists.jsx';
 import NewMailingListPage from './src/pages/newMailingListsPage.jsx';
-import EditMailingListPage from './src/pages/editMailingList.jsx'
+import EditMailingListPage from './src/pages/editMailingList.jsx';
+import EditCampaignPage from "./src/pages/editCampaign.jsx";
 
 
 const App = () => (
@@ -39,7 +40,7 @@ const App = () => (
       <Route path="/mailinglists" element={  <ProtectRoute> <MailingLists />  </ProtectRoute>      }/>
       <Route path="/newmailinglist" element={  <ProtectRoute> <NewMailingListPage />  </ProtectRoute>      }/>
       <Route path="/mailinglist/edit/:id" element={  <ProtectRoute> <EditMailingListPage />  </ProtectRoute>      }/>
-
+      <Route path="/campaign/edit/:id" element={  <ProtectRoute> <EditCampaignPage />  </ProtectRoute>      }/>
     </Routes>
 
   </Router>

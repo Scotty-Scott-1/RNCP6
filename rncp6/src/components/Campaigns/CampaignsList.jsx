@@ -1,5 +1,5 @@
 import React, { useState, useEffect, use } from "react";
-import styles from "./DashComp1.module.css";
+import styles from "./Campaign.module.css";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../../security/authContext.jsx";
 
@@ -45,7 +45,8 @@ const Campaigns = () => {
   const totalPages = Math.ceil(myCampaigns.length / itemsPerPage);
 
   const handleCampaignClick = (id) => {
-    console.log("Clicked campaign:", id);
+    console.log("Clicked campaign list:", id);
+    navigate(`/campaign/edit/${id}`);
   };
 
   const handleAddCampaign = () => {
@@ -80,13 +81,13 @@ const Campaigns = () => {
           <div key={c._id} className={styles.listItem}>
             <button
               className={styles.campaignButton}
-              onClick={() => handleCampaignClick(c.id)}
+              onClick={() => handleCampaignClick(c._id)}
             >
               {c.campaignName}
             </button>
             <span>{new Date(c.startTime).toLocaleDateString()}</span>
             <span>{new Date(c.endTime).toLocaleDateString()}</span>
-            <span>{c.selectMailingList}</span>
+            <span>{c.mailingList?.listName || "No mailing list"}</span>
             <button className={styles.button} onClick={handleAddCampaign}>
               +
             </button>

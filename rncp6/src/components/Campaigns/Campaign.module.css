@@ -193,3 +193,36 @@ label {
   color: #000;
   box-shadow: 0 0 10px #00ffff88;
 }
+
+
+/* Dropdown (Select) styling */
+select.input {
+  background: #0e0e0e;
+  color: #00ffff;
+  border: 1px solid #00ffff;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-bottom: 0.75rem;
+  appearance: none; /* hide default arrow */
+  cursor: pointer;
+}
+
+/* Hover/Focus effects */
+select.input:hover,
+select.input:focus {
+  background: #00ffff11;
+  border-color: #00ffff;
+  box-shadow: 0 0 10px #00ffff88;
+  color: #00ffff;
+}
+
+/* Option styling */
+select.input option {
+  background: #0e0e0e;
+  color: #00ffff;
+  padding: 0.5rem;
+}

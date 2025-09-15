@@ -5,7 +5,11 @@ const campaignSchema = new mongoose.Schema({
 	description: String,
 	startTime: String,
 	endTime: String,
-	selectMailingList: String,
+	mailingList: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "MailingList",  // Reference to MailingList model
+		required: true
+	},
 	emailSenderName: String,
 	emailTemplate: String,
 	landingPageTemplate: String,
