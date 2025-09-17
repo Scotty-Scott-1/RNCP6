@@ -23,6 +23,7 @@ import MailingLists from './src/pages/MailingLists.jsx';
 import NewMailingListPage from './src/pages/newMailingListsPage.jsx';
 import EditMailingListPage from './src/pages/editMailingList.jsx';
 import EditCampaignPage from "./src/pages/editCampaign.jsx";
+import ResetPassword from "./src/pages/Templates/ResetPassword.jsx";
 
 
 const App = () => (
@@ -41,6 +42,8 @@ const App = () => (
       <Route path="/newmailinglist" element={  <ProtectRoute> <NewMailingListPage />  </ProtectRoute>      }/>
       <Route path="/mailinglist/edit/:id" element={  <ProtectRoute> <EditMailingListPage />  </ProtectRoute>      }/>
       <Route path="/campaign/edit/:id/:listid" element={  <ProtectRoute> <EditCampaignPage />  </ProtectRoute>      }/>
+
+      <Route path="reset" element={<ResetPassword />} />
     </Routes>
 
   </Router>

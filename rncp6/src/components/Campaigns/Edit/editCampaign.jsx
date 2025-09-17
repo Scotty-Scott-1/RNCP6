@@ -87,22 +87,28 @@ const EditCampaign = () => {
     <form className={styles.container} onSubmit={handleSubmit}>
       <h1 className={styles.title}>Edit Campaign</h1>
 
+      <label htmlFor="campaignName">Campaign Name:</label>
       <input
         type="text"
+        id="campaignName"
         value={campaignName}
         onChange={(e) => setCampaignName(e.target.value)}
         className={styles.input}
         placeholder="Campaign Name"
         required
       />
+
+      <label htmlFor="description">Description:</label>
       <input
         type="text"
+        id="description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         className={styles.input}
         placeholder="Description"
         required
       />
+
 			<label htmlFor="startTime">Start Time:</label>
 			<DateTimePicker
 				id="startTime"
@@ -112,39 +118,46 @@ const EditCampaign = () => {
 			/>
 
 			<label htmlFor="endTime">End Time:</label>
-			<DateTimePicker
-				id="endTime"
-				value={endTime}
-				onChange={setEndTime}
-				className={styles.inputDatetime}
-			/>
+			  <DateTimePicker
+				  id="endTime"
+				  value={endTime}
+				  onChange={setEndTime}
+				  className={styles.inputDatetime}
+			 />
 
-
-    <input
-  type="text"
-  value={myList?.listName || ""}
-  className={styles.input}
-  placeholder="Mailing list"
-  readOnly
-/>
-
+      <label htmlFor="Mailing list">Mailing List:</label>
       <input
         type="text"
+        id="Mailing list"
+        value={myList?.listName || ""}
+        className={styles.input}
+        placeholder="Mailing list"
+        readOnly
+      />
+
+      <label htmlFor="emailSenderName">Email Sender Name:</label>
+      <input
+        type="text"
+        id="emailSenderName"
         value={emailSenderName}
         onChange={(e) => setEmailSenderName(e.target.value)}
         className={styles.input}
         placeholder="Email Sender Name"
         required
       />
+      <label htmlFor="emailTemplate">Email Template:</label>
       <input
         type="text"
+        id="emailTemplate"
         value={emailTemplate}
         onChange={(e) => setEmailTemplate(e.target.value)}
         className={styles.input}
         placeholder="Email Template"
       />
+      <label htmlFor="Landing Page Template">Landing Page Template:</label>
       <input
         type="text"
+        id="landingPageTemplate"
         value={landingPageTemplate}
         onChange={(e) => setLandingPageTemplate(e.target.value)}
         className={styles.input}
