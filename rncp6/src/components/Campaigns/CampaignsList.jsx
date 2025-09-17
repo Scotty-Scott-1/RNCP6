@@ -44,9 +44,10 @@ const Campaigns = () => {
   const currentItems = myCampaigns.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(myCampaigns.length / itemsPerPage);
 
-  const handleCampaignClick = (id) => {
+  const handleCampaignClick = (id, listid) => {
     console.log("Clicked campaign list:", id);
-    navigate(`/campaign/edit/${id}`);
+    console.log("associsated list", listid);
+    navigate(`/campaign/edit/${id}/${listid}`);
   };
 
   const handleAddCampaign = () => {
@@ -81,7 +82,7 @@ const Campaigns = () => {
           <div key={c._id} className={styles.listItem}>
             <button
               className={styles.campaignButton}
-              onClick={() => handleCampaignClick(c._id)}
+              onClick={() => handleCampaignClick(c._id, c.mailingList._id)}
             >
               {c.campaignName}
             </button>

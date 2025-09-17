@@ -3,11 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../security/authContext.jsx";
 import styles from '../../Campaigns/Campaign.module.css';
 import { getOneCampaign } from "./hooks/GetOneCampaign.jsx";
+import { getOneMailingList } from "./hooks/GetOneMailingList.jsx";
+import DateTimePicker from '../../DateInput/DateInputComponent.jsx';
 
 const EditCampaign = () => {
   const navigate = useNavigate();
   const { accessToken } = useAuth();
-  const { id } = useParams();
+  const { id, listid } = useParams();
 
   const [campaignName, setCampaignName] = useState("");
   const [description, setDescription] = useState("");
@@ -20,27 +22,17 @@ const EditCampaign = () => {
   const [landingPage, setLandingPage] = useState(false);
 
 
-  const [userMailingLists, setUserMailingLists] = useState([]);
-
   // load campaign
   const myCampaign = getOneCampaign(id, accessToken);
-
-
-  const formatForInput = (isoString) => {
-    if (!isoString) return "";
-    const date = new Date(isoString);
-    const pad = (n) => n.toString().padStart(2, '0');
-    return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-  };
+  const myList = getOneMailingList(listid, accessToken);
 
   // load campaign data
   useEffect(() => {
     if (myCampaign) {
       setCampaignName(myCampaign.campaignName || "");
       setDescription(myCampaign.description || "");
-      setStartTime(formatForInput(myCampaign.startTime));
-      setEndTime(formatForInput(myCampaign.endTime));
-      setMailingList(myCampaign.mailingList?._id || ""); // use ID for selection
+      setStartTime(myCampaign.startTime);
+      setEndTime(myCampaign.endTime);
       setEmailSenderName(myCampaign.emailSenderName || "");
       setEmailTemplate(myCampaign.emailTemplate || "");
       setLandingPageTemplate(myCampaign.landingPageTemplate || "");
@@ -49,30 +41,15 @@ const EditCampaign = () => {
   }, [myCampaign]);
 
 
-  useEffect(() => {
-    const fetchMailingLists = async () => {
-      try {
-        const res = await fetch("https://localhost:5001/api/mailinglist/get", {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setUserMailingLists(data);
-        }
-      } catch (err) {
-        console.error("Failed to fetch mailing lists:", err);
-      }
-    };
-    if (accessToken) fetchMailingLists();
-  }, [accessToken]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!campaignName || !description || !startTime || !endTime || !mailingList || !emailSenderName) {
+    if (!campaignName || !description || !startTime || !endTime || !emailSenderName) {
       alert("All required fields must be filled.");
       return;
     }
+
+
 
     try {
       const response = await fetch("https://localhost:5001/api/campaign/update", {
@@ -85,9 +62,8 @@ const EditCampaign = () => {
           id,
           campaignName,
           description,
-          startTime,
-          endTime,
-          mailingList,
+					startTime: startTime.toISOString(),
+					endTime: endTime.toISOString(),
           emailSenderName,
           emailTemplate,
           landingPageTemplate,
@@ -127,33 +103,30 @@ const EditCampaign = () => {
         placeholder="Description"
         required
       />
-      <input
-        type="datetime-local"
-        value={startTime}
-        onChange={(e) => setStartTime(e.target.value)}
-        className={styles.input}
-        required
-      />
-      <input
-        type="datetime-local"
-        value={endTime}
-        onChange={(e) => setEndTime(e.target.value)}
-        className={styles.input}
-        required
-      />
+			<label htmlFor="startTime">Start Time:</label>
+			<DateTimePicker
+				id="startTime"
+				value={startTime}
+				onChange={setStartTime}
+				className={styles.inputDatetime}
+			/>
 
-      {/* === UPDATED: Mailing list dropdown */}
-      <select
-        value={mailingList}
-        onChange={(e) => setMailingList(e.target.value)}
-        className={styles.input}
-        required
-      >
-        <option value="">-- Select Mailing List --</option>
-        {userMailingLists.map((list) => (
-          <option key={list._id} value={list._id}>{list.listName}</option>
-        ))}
-      </select>
+			<label htmlFor="endTime">End Time:</label>
+			<DateTimePicker
+				id="endTime"
+				value={endTime}
+				onChange={setEndTime}
+				className={styles.inputDatetime}
+			/>
+
+
+    <input
+  type="text"
+  value={myList?.listName || ""}
+  className={styles.input}
+  placeholder="Mailing list"
+  readOnly
+/>
 
       <input
         type="text"

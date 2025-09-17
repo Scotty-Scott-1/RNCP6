@@ -40,7 +40,7 @@ const App = () => (
       <Route path="/mailinglists" element={  <ProtectRoute> <MailingLists />  </ProtectRoute>      }/>
       <Route path="/newmailinglist" element={  <ProtectRoute> <NewMailingListPage />  </ProtectRoute>      }/>
       <Route path="/mailinglist/edit/:id" element={  <ProtectRoute> <EditMailingListPage />  </ProtectRoute>      }/>
-      <Route path="/campaign/edit/:id" element={  <ProtectRoute> <EditCampaignPage />  </ProtectRoute>      }/>
+      <Route path="/campaign/edit/:id/:listid" element={  <ProtectRoute> <EditCampaignPage />  </ProtectRoute>      }/>
     </Routes>
 
   </Router>
